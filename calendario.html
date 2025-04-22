@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calculadora de Edad</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
+
+      .mensaje {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      .niño {
+        background-color: lightblue;
+      }
+
+      .adolescente {
+        background-color: lightgreen;
+      }
+
+      .adulto {
+        background-color: lightyellow;
+      }
+
+      .mayor {
+        background-color: lightgray;
+      }
+
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Calcula tu edad</h1>
+
+    <p>Escribe tu nombre:</p>
+    <input type="text" id="nombre" />
+
+    <p>Escribe tu año de nacimiento:</p>
+    <input type="number" id="nacimiento" />
+
+    <br /><br />
+    <button onclick="calcularEdad()">Mostrar resultado</button>
+
+    <div id="resultado" class="mensaje"></div>
+
+    <script>
+      function calcularEdad() {
+        // Obtener valores
+        var nombre = document.getElementById("nombre").value;
+        var nacimiento = document.getElementById("nacimiento").value;
+
+        // Convertir el año a número
+        var nacimientoNum = parseInt(nacimiento);
+        var añoActual = new Date().getFullYear();
+        var edad = añoActual - nacimientoNum;
+
+        // Obtener el div para mostrar el resultado
+        var resultado = document.getElementById("resultado");
+
+        // Limpiar clases anteriores
+        resultado.className = "mensaje";
+
+        // Validar entrada
+        if (!nombre || isNaN(edad) || edad < 0 || edad > 130) {
+          resultado.textContent =
+            "Por favor, ingresa un nombre y un año válido.";
+          resultado.classList.add("error");
+          return;
+        }
+
+        // Clasificar la edad
+        var clasificacion = "";
+
+        if (edad <= 12) {
+          clasificacion = "niño";
+        } else if (edad <= 17) {
+          clasificacion = "adolescente";
+        } else if (edad <= 59) {
+          clasificacion = "adulto";
+        } else {
+          clasificacion = "mayor";
+        }
+
+        // Mostrar el mensaje
+        resultado.textContent =
+          "Hola " +
+          nombre +
+          ", tienes " +
+          edad +
+          " años. Eres un(a) " +
+          clasificacion +
+          ".";
+        resultado.classList.add(clasificacion);
+      }
+    </script>
+  </body>
+</html>
